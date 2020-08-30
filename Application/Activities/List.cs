@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Application.Activities
 {
@@ -14,8 +16,10 @@ namespace Application.Activities
         public class Handler : IRequestHandler<Query, List<Activity>>
         {
             private readonly DataContext _context;
+
             public Handler(DataContext context)
             {
+
                 _context = context;
 
             }
@@ -23,6 +27,7 @@ namespace Application.Activities
             public async Task<List<Activity>> Handle(Query request,
              CancellationToken cancellationToken)
             {
+
                 var activities = await _context.Activities.ToListAsync();
                 return activities;
             }
